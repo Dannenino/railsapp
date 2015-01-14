@@ -1,0 +1,45 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br>
+    <%= f.text_field :link %>
+    <p style="color: black">*Kopiera ett youtube klipp och klistra in.<br> Glöm inte att ändra: <em> watch?v= </em> till <em> embed/</em>.</p>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.text_field :image %>
+    <p style="color: black">*Klistra in en bild länkaddress</p>
+  </div>
+  <div class="row"> 
+    <div class="small-6 large-7 columns">
+        <div class="actions">
+          <%= f.submit "Skapa inlägg", class: "button" %>
+        </div>
+    </div>
+    <div class="small-6 large-5 columns">
+      <p class="text-right">
+        <%= link_to 'Bakåt', posts_path, class: "button"%>
+      </p>
+    </div>
+  </div>
+
+<% end %>

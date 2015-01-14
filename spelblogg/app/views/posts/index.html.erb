@@ -1,0 +1,9 @@
+<div style="background-color:#ffffff; color: #000000; margin:20px; padding:20px;border:10px black; border-radius: 10px ;opacity:0.8 ;">
+	<% @posts.each do |post| %>
+    	<h2><%= link_to post.title, post %></h2>
+    	<p class="text-justify"><%= post.text %></p>
+    	<p class="text-right">Posted: <%= time_ago_in_words post.created_at %> ago!</p>
+    	<hr>
+  	<% end %>
+  	
+</div>

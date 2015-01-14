@@ -1,0 +1,70 @@
+
+<div class="row" style="background-color:#ffffff; color: #000000; margin:20px; padding:20px; border:10px black; border-radius: 10px ;opacity:0.7 ;">
+
+	<div class="small-7 large-7 column">
+
+		<p class="text-justify">
+			<h2><%= @post.title %></h2>
+		</p>
+
+		<p class="text-justify">
+			<%= @post.text %>
+		</p>
+
+		<p>
+			<iframe width="860" height="450" src="<%= @post.link %>" frameborder="0" allowfullscreen></iframe>
+		</p>
+	</div>
+	<div class="small-5 large-5 column">
+		<br>
+		<br>
+		<br>
+		<ul class="large-block-grid-1">
+		<li><%= image_tag(@post.image, size:'350x205') %></li>
+		</ul>
+		</div>
+
+	<div class="row">
+		<div class="small-6 large-6 column">
+			<p>
+				Posted <%= time_ago_in_words @post.created_at %> ago!
+			</p>
+		</div>
+
+		<div class="small-6 large-6 column">
+			<p class="text-right">
+				<% if user_signed_in? %>
+				<%= link_to 'Ändra', edit_post_path(@post), class: "button"  %>
+				<%= link_to 'Ta bort', @post, class: "button", method: :delete, data: { confirm: 'Är du säker?' } %>
+				<% end %>
+				<%= link_to 'Bakåt', posts_path, class: "button" %>
+			</p>
+		</div>
+	</div>
+	<br>		
+	<h3><%= @post.comments.count %> Kommentarer</h3>
+	<hr>
+	<% @post.comments.each do |comment| %>
+
+	<div class="row">
+		<div class="small-6 large-6 column">
+			<p><%= comment.text %></p>
+			<% if user_signed_in? %>
+			<p><%= link_to "Ta bort kommentar", [comment.post, comment], method: :delete, data: { confirm: "Är du säker?" } %></p>
+			<% end %>
+		</div>
+		<div class="small-6 large-6 column">
+			<p class="text-right"><%= time_ago_in_words comment.created_at %> ago</p>
+		</div>
+	</div>
+	<hr>
+	<% end %>
+
+	<%= form_for [@post, @post.comments.build] do |f| %>
+	<p><%= f.text_area :text, :size => '10x20' %></p>
+	<p class="text-right"><%= f.submit "Kommentera", class: "button" %></p>
+	<% end %>
+
+</div>	
+
+

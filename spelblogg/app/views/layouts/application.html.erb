@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Spelblogg" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="fixed">
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
+            <%= link_to image_tag('spelblogg6.jpg', size:'230x150'), posts_path %>
+          </li>
+           <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+
+          <ul class="right">
+            <li class="active"><a href="#"><%= link_to 'Nytt inlägg', new_post_path %></a></li>
+            <li class="has-dropdown">
+              <%= image_tag('meny.png', size:'160x150')%>
+              <ul class="dropdown">
+                <li><a href="#"><%= link_to "Om oss", about_path %></a></li>
+                
+                <li class="active"><a href="#"><%= link_to "Media", social_path %></a></li>
+                
+                <% if user_signed_in? %>
+                  <li><a href="#"><%= link_to "Logga ut", destroy_user_session_path, :method => :delete %></a></li>
+                <% end %>
+                
+                <% if !user_signed_in? %>
+                  <li><a href="#"><%= link_to "Logga in", new_user_session_path %></a></li>
+
+                  <li class="active"><a href="#"><%= link_to "Registrera", new_user_registration_path %></a></li>
+                <% end %>
+
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li><a href="#"></a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+    <!-- end navbar -->
+    <div class="row">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <div class="small-12 large-12 columns"><%= yield %></div>  
+      <hr>
+      <p class="text-center"> Copyright &copy;  Daniel Nilsson & Andreas Alm</p>
+      <br>
+    </div>
+
+
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>
